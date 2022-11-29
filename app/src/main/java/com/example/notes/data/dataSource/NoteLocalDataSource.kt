@@ -24,4 +24,9 @@ class NoteLocalDataSource @Inject constructor(
 
     fun searchNotes(searchedText: String): Flow<List<NoteEntity>> =
         noteDao.searchNotes(searchedText)
+
+    fun getAllTasks(): Flow<List<NoteEntity>> = noteDao.getAllTasks()
+
+    fun searchTasks(searchedText: String): Flow<List<NoteEntity>> =
+        noteDao.searchTasks(searchedText)
 }

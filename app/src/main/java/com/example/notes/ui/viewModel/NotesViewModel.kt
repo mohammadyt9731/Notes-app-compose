@@ -16,6 +16,9 @@ class NotesViewModel @Inject constructor(private val noteRepository: NoteReposit
     fun searchNotes(searchedText: String): Flow<List<NoteView>> =
         noteRepository.searchNotes(searchedText)
 
+    fun searchTasks(searchedText: String): Flow<List<NoteView>> =
+        noteRepository.searchTasks(searchedText)
+
     fun deleteNote(noteView: NoteView) = viewModelScope.launch(Dispatchers.IO) {
         noteRepository.deleteNote(noteView)
     }

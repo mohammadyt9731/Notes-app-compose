@@ -48,7 +48,7 @@ fun AddNoteScreen(
 
     val noteState by noteViewModel.getNote(id).collectAsState(
         initial = NoteView(
-            id = 0,
+            id = 0,//auto generate
             title = "",
             notes = "",
             isTask = isTask ?: false
@@ -70,7 +70,6 @@ fun AddNoteScreen(
         ToolBar(isTask = isTask ?: false, id = id) {
             navController.navigateUp()
         }
-
         Spacer(modifier = Modifier.height(16.dp))
         InputField(
             value = titleValueState,
@@ -140,7 +139,7 @@ fun ToolBar(isTask: Boolean, id: Int, onClick: () -> Unit) {
             contentDescription = stringResource(id = R.string.icon_back),
             tint = MaterialTheme.colors.onPrimary
         )
-        if (id == -1)
+        if (id == -1){
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = if (isTask) {
@@ -154,6 +153,7 @@ fun ToolBar(isTask: Boolean, id: Int, onClick: () -> Unit) {
                     fontSize = 22.sp
                 )
             )
+        }
     }
 }
 

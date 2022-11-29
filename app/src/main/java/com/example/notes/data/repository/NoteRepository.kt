@@ -33,4 +33,16 @@ class NoteRepository @Inject constructor(private val noteLocalDataSource: NoteLo
             }
         }
     }
+
+    fun searchTasks(searchedText: String): Flow<List<NoteView>> {
+        return if (searchedText.isEmpty()) {
+            noteLocalDataSource.getAllTasks().map {
+                it.map { noteEntity -> noteEntity.toNoteView() }
+            }
+        } else {
+            noteLocalDataSource.searchTasks(searchedText).map {
+                it.map { noteEntity -> noteEntity.toNoteView() }
+            }
+        }
+    }
 }

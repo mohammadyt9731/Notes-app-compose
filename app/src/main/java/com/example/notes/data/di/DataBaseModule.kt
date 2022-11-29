@@ -27,5 +27,4 @@ object DataBaseModule {
     @Provides
     @Singleton
     fun provideNoteDao(appDataBase: AppDataBase): NoteDao = appDataBase.noteDao()
-
 }

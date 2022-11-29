@@ -1,7 +1,6 @@
 package com.example.notes.ui.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -42,31 +41,11 @@ fun NotesScreen(navHostController: NavHostController) {
     var searchValueState by remember {
         mutableStateOf("")
     }
-
     var isTaskSelected by remember {
         mutableStateOf(false)
     }
-
-    var notes by remember {
-        mutableStateOf(listOf<NoteView>())
-    }
-
-    LaunchedEffect(key1 = notes) {
-        Log.i("Mohammad", "notes = : $notes")
-    }
-
-    LaunchedEffect(key1 = searchValueState) {
-        notesViewModel.searchNotes(searchValueState).collect {
-            notes = it
-        }
-    }
-
-    LaunchedEffect(key1 = isTaskSelected) {
-        Log.i("Mohammad", "isNoteSelected : $isTaskSelected")
-    }
-
-    //  val notes by notesViewModel.searchNotes(searchValueState).collectAsState(initial = emptyList())
-    //  val tasks by notesViewModel.searchTasks(searchValueState).collectAsState(initial = emptyList())
+    val notes by notesViewModel.searchNotes(searchValueState).collectAsState(initial = emptyList())
+    val tasks by notesViewModel.searchTasks(searchValueState).collectAsState(initial = emptyList())
 
     Scaffold(
         modifier = Modifier
@@ -94,9 +73,10 @@ fun NotesScreen(navHostController: NavHostController) {
                 searchValueState = it
             }
             Spacer(modifier = Modifier.height(16.dp))
-            if (!isTaskSelected)
+            if (isTaskSelected)
+                NoteListSection(tasks, navHostController, notesViewModel)
+            else
                 NoteListSection(notes, navHostController, notesViewModel)
-
         }
     }
 }

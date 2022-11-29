@@ -9,7 +9,7 @@ import androidx.navigation.navArgument
 import com.example.notes.ui.screens.AddNoteScreen
 import com.example.notes.ui.screens.NotesScreen
 
-const val IS_Task_KEY = "is_task_key"
+const val IS_TASK_KEY = "is_task_key"
 const val ID_KEY = "id_key"
 
 @Composable
@@ -20,9 +20,9 @@ fun NavGraph(navController: NavHostController) {
         composable(route = Screens.Notes.route) {
             NotesScreen(navController)
         }
-        composable(route = "${Screens.Note.route}/{${IS_Task_KEY}}/{${ID_KEY}}",
+        composable(route = "${Screens.Note.route}/{${IS_TASK_KEY}}/{${ID_KEY}}",
             arguments = listOf(
-                navArgument(name = IS_Task_KEY) {
+                navArgument(name = IS_TASK_KEY) {
                     type = NavType.BoolType
                 },
                 navArgument(
@@ -34,7 +34,7 @@ fun NavGraph(navController: NavHostController) {
         ) { entry ->
             AddNoteScreen(
                 navController = navController,
-                isTask = entry.arguments?.getBoolean(IS_Task_KEY),
+                isTask = entry.arguments?.getBoolean(IS_TASK_KEY),
                 id = entry.arguments?.getInt(ID_KEY) ?: -1
             )
         }
